@@ -1,0 +1,11 @@
+<form role="form" method="POST" action="{{ url_for('main_views.questions') }}">
+    {{ form.csrf_token }}
+    {% for f in form if f.widget.input_type != 'hidden' %}
+    <div class="form-group">
+        {{ f.label }}
+    {{ f(class="form-control",size=20) }}
+{#        <p class="help-block">{{ f.description }}</p>#}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>

@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <h1>List of Essay Topics </h1>
+
+        <hr/>
+
+        <h3>Add a new category!</h3>
+     {{ form|safe }}
+
+        <hr/>
+    {% if questions|length == 0 %}
+        <h3>You don't have any categories yet.</h3>
+    {% endif %}
+
+        <h3>Essay Categories</h3>
+
+    {% for q in questions %}
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title">{{q.name}}</h3>
+            </div>
+            <div class="panel-body">
+                <p>{{q.prompt}}</p>
+                <p>Essay count: {{ q.essays|length }}</p>
+                {% if q.status %}
+                    <div class="model-status" data-href="{{ q.status }}">
+                    </div>
+                {% endif %}
+            </div>
+            <div class="panel-footer">
+                <div class="btn-group">
+                    <a class="btn btn-primary" style="margin: 10px" href="{{ url_for('main_views.question_detail', id=q.id) }}">View essays</a>
+                    <a class="btn btn-primary method-link" style="margin: 10px" data-href="{{ url_for('main_views.question_detail', id=q.id) }}" href="#" data-method="DELETE">Delete Category</a>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+    <hr/>
+
+{% endblock %}
